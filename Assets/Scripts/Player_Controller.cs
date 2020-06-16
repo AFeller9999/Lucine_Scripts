@@ -247,7 +247,13 @@ public class Player_Controller : MonoBehaviour
 	// Makes the player sustain the given hitstun for the given number of frames, assuming the game is running at 60 frames per second.
 	internal void sustainHitstun(int frames)
 	{
-		// Also shenanigans
+		Timer HitstunTimer = new Timer(frames * (1/60) * 1000);
+		HitstunTimer.AutoReset = false;
+		HitstunTimer.Elapsed += (object sender, ElapsedEventArgs e) =>
+		{
+			hitsunEnd();
+		};
+		HitstunTimer.Start();
 	}
 
 	// Called when the hitstun duration is over. Should not be called at any other point.
